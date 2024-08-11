@@ -10,18 +10,18 @@ class ContactController extends Controller
     {
         $contacts = Contact::query();
 
-        // Search functionality
+      
         if ($request->has('search')) {
             $contacts->where('name', 'like', '%'.$request->search.'%')
                      ->orWhere('email', 'like', '%'.$request->search.'%');
         }
 
-        // Sorting functionality
+        
         if ($request->has('sort_by')) {
             $contacts->orderBy($request->sort_by, $request->sort_direction ?? 'asc');
         }
 
-        $contacts = $contacts->paginate(10); // Adjust pagination as needed
+        $contacts = $contacts->paginate(10); 
 
         return view('index', compact('contacts'));
     }
